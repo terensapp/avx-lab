@@ -1,0 +1,1 @@
+This is a lab that is built/maintained by Terraform
