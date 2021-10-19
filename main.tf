@@ -36,6 +36,5 @@ module "aws_spoke_1" {
   ha_gw           = var.ha_enabled
   prefix          = false
   suffix          = false
-  security_domain = aviatrix_segmentation_security_domain.BU1.domain_name
   transit_gw      = module.aws_transit_1.transit_gateway.gw_name
 }
