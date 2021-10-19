@@ -8,7 +8,3 @@ provider "aws" {
   alias  = "ohio"
   region = var.aws_spoke1_region
 }
-
-provider "azurerm" {
-  features {}
-}
