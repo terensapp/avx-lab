@@ -20,7 +20,7 @@ locals {
 #!/bin/bash
 sudo hostnamectl set-hostname "BU1-Bastion"
 sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
-sudo echo 'ubuntu:${var.ace_password}' | /usr/sbin/chpasswd
+sudo echo 'ubuntu:${var.host_password}' | /usr/sbin/chpasswd
 sudo apt update -y
 sudo apt upgrade -y
 sudo apt-get -y install traceroute unzip build-essential git gcc hping3 apache2 net-tools
@@ -50,7 +50,7 @@ module "aws_spoke_bastion" {
   instance_type               = var.aws_test_instance_size
   name                        = "${var.aws_spoke1_name}-bastion"
   ami                         = data.aws_ami.ubuntu.id
-  key_name                    = var.ace_ec2_key_name
+  key_name                    = var.ec2_key_name
   instance_count              = 1
   subnet_id                   = module.aws_spoke_1.vpc.public_subnets[0].subnet_id
   vpc_security_group_ids      = [module.security_group_1.this_security_group_id]
