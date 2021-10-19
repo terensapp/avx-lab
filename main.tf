@@ -23,3 +23,19 @@ module "aws_transit_1" {
   instance_size       = var.aws_transit_instance_size
   enable_segmentation = true
 }
+
+# AWS Spoke Modules
+module "aws_spoke_1" {
+  source          = "terraform-aviatrix-modules/aws-spoke/aviatrix"
+  version         = "4.0.1"
+  account         = var.aws_account_name
+  region          = var.aws_spoke1_region
+  name            = var.aws_spoke1_name
+  cidr            = var.aws_spoke1_cidr
+  instance_size   = var.aws_spoke_instance_size
+  ha_gw           = var.ha_enabled
+  prefix          = false
+  suffix          = false
+  security_domain = aviatrix_segmentation_security_domain.BU1.domain_name
+  transit_gw      = module.aws_transit_1.transit_gateway.gw_name
+}
