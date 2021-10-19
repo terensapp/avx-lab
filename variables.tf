@@ -23,7 +23,7 @@ variable "aws_transit1_region" {
 }
 
 variable "aws_transit1_name" {
-  default = "ace-iac"
+  default = "aws-ohio-transit"
 }
 
 variable "aws_transit1_cidr" {
@@ -39,11 +39,19 @@ variable "aws_spoke1_region" {
 }
 
 variable "aws_spoke1_name" {
-  default = "ace-iac-spoke1"
+  default = "aws-east2-spoke1"
 }
 
 variable "aws_spoke1_cidr" {
   default = "10.1.211.0/24"
+}
+
+variable "aws_spoke2_name" {
+  default = "aws-east2-spoke2"
+}
+
+variable "aws_spoke2_cidr" {
+  default = "10.1.212.0/24"
 }
 
 variable "aws_test_instance_size" {
@@ -62,7 +70,7 @@ variable "azure_spoke2_region" {
 }
 
 variable "azure_spoke2_name" {
-  default = "ace-iac-spoke2"
+  default = "azure-spoke2"
 }
 
 variable "azure_spoke2_cidr" {
@@ -74,7 +82,7 @@ variable "azure_test_instance_size" {
 }
 
 variable "ec2_key_name" {
-  default = "TFKey"
+  default = "avx-terenmbp"
 }
 
 variable "ha_enabled" {
