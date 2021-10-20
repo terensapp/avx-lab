@@ -79,5 +79,5 @@ module "aws_spoke2_bastion" {
 }
 
 output "aws_spoke1_bastion_public_ip" {
-  value = module.aws_spoke_bastion.public_ip
+  value = module.aws_spoke1_bastion.public_ip
 }
