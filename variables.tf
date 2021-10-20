@@ -54,6 +54,14 @@ variable "aws_spoke2_cidr" {
   default = "10.1.212.0/24"
 }
 
+variable "aws_spoke3_name" {
+  default = "aws-east2-spoke3"
+}
+
+variable "aws_spoke3_cidr" {
+  default = "10.1.213.0/24"
+}
+
 variable "aws_test_instance_size" {
   default = "t2.micro"
 }

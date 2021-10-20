@@ -58,6 +58,20 @@ module "security_group_spoke2" {
   }
 }
 
+module "security_group_spoke3" {
+  source              = "terraform-aws-modules/security-group/aws"
+  version             = "~> 3.0"
+  name                = "security_group_spoke3"
+  description         = "Security group for example usage with EC2 instance"
+  vpc_id              = module.aws_spoke_2.vpc.vpc_id
+  ingress_cidr_blocks = ["0.0.0.0/0"]
+  ingress_rules       = ["http-80-tcp", "ssh-tcp", "all-icmp"]
+  egress_rules        = ["all-all"]
+  providers = {
+    aws = aws.ohio
+  }
+}
+
 module "aws_spoke1_bastion" {
   source                      = "terraform-aws-modules/ec2-instance/aws"
   version                     = "2.21.0"
