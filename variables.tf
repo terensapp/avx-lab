@@ -23,7 +23,7 @@ variable "aws_transit1_region" {
 }
 
 variable "aws_transit1_name" {
-  default = "aws-ohio-transit"
+  default = "aws-ohio"
 }
 
 variable "aws_transit1_cidr" {

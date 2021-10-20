@@ -1,15 +1,3 @@
-# Private Key creation
-resource "tls_private_key" "avtx_key" {
-  algorithm = "RSA"
-  rsa_bits  = 2048
-}
-
-resource "aws_key_pair" "ace_key" {
-  provider   = aws.ohio
-  key_name   = var.ec2_key_name
-  public_key = tls_private_key.avtx_key.public_key_openssh
-}
-
 # AWS Transit Modules
 module "aws_transit_1" {
   source              = "terraform-aviatrix-modules/aws-transit/aviatrix"

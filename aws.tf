@@ -44,7 +44,7 @@ module "security_group_1" {
   }
 }
 
-module "aws_spoke_bastion" {
+module "aws_spoke1_bastion" {
   source                      = "terraform-aws-modules/ec2-instance/aws"
   version                     = "2.21.0"
   instance_type               = var.aws_test_instance_size
@@ -61,10 +61,23 @@ module "aws_spoke_bastion" {
   }
 }
 
-output "aws_spoke1_bastion_public_ip" {
-  value = module.aws_spoke_bastion.public_ip
+module "aws_spoke2_bastion" {
+  source                      = "terraform-aws-modules/ec2-instance/aws"
+  version                     = "2.21.0"
+  instance_type               = var.aws_test_instance_size
+  name                        = "${var.aws_spoke2_name}-bastion"
+  ami                         = data.aws_ami.ubuntu.id
+  key_name                    = var.ec2_key_name
+  instance_count              = 1
+  subnet_id                   = module.aws_spoke_2.vpc.public_subnets[0].subnet_id
+  vpc_security_group_ids      = [module.security_group_1.this_security_group_id]
+  associate_public_ip_address = true
+  user_data_base64            = base64encode(local.bu1_bastion_user_data)
+  providers = {
+    aws = aws.ohio
+  }
 }
 
-output "aws_spoke1_bastion_private_ip" {
-  value = module.aws_spoke_bastion.private_ip
+output "aws_spoke1_bastion_public_ip" {
+  value = module.aws_spoke_bastion.public_ip
 }
