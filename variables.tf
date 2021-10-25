@@ -50,6 +50,14 @@ variable "aws_spoke2_name" {
   default = "aws-east2-spoke2"
 }
 
+variable "aws_spoke3_name" {
+  default = "aws-east2-spoke3"
+}
+
+variable "aws_spoke4_name" {
+  default = "aws-east2-spoke4"
+}
+
 variable "aws_spoke2_cidr" {
   default = "10.1.212.0/24"
 }
@@ -60,6 +68,10 @@ variable "aws_spoke3_name" {
 
 variable "aws_spoke3_cidr" {
   default = "10.1.213.0/24"
+}
+
+variable "aws_spoke4_cidr" {
+  default = "10.1.214.0/24"
 }
 
 variable "aws_test_instance_size" {
