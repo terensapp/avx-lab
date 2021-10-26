@@ -18,56 +18,8 @@ variable "aws_transit_instance_size" {
   default = "t3.micro"
 }
 
-variable "aws_transit1_region" {
-  default = "us-east-2"
-}
-
-variable "aws_transit1_name" {
-  default = "aws-ohio"
-}
-
-variable "aws_transit1_cidr" {
-  default = "10.1.200.0/23"
-}
-
 variable "aws_spoke_instance_size" {
   default = "t3.micro"
-}
-
-variable "aws_spoke1_region" {
-  default = "us-east-2"
-}
-
-variable "aws_spoke1_name" {
-  default = "aws-east2-spoke1"
-}
-
-variable "aws_spoke1_cidr" {
-  default = "10.1.211.0/24"
-}
-
-variable "aws_spoke2_name" {
-  default = "aws-east2-spoke2"
-}
-
-variable "aws_spoke4_name" {
-  default = "aws-east2-spoke4"
-}
-
-variable "aws_spoke2_cidr" {
-  default = "10.1.212.0/24"
-}
-
-variable "aws_spoke3_name" {
-  default = "aws-east2-spoke3"
-}
-
-variable "aws_spoke3_cidr" {
-  default = "10.1.213.0/24"
-}
-
-variable "aws_spoke4_cidr" {
-  default = "10.1.214.0/24"
 }
 
 variable "aws_test_instance_size" {

@@ -1,56 +1,30 @@
 # AWS Transit Modules
-module "aws_transit_1" {
-  source              = "terraform-aviatrix-modules/aws-transit/aviatrix"
-  version             = "4.0.1"
-  account             = var.aws_account_name
-  region              = var.aws_transit1_region
-  name                = var.aws_transit1_name
-  cidr                = var.aws_transit1_cidr
-  ha_gw               = var.ha_enabled
-  prefix              = false
-  instance_size       = var.aws_transit_instance_size
-  enable_segmentation = true
-}
+#module "aws_transit_1" {
+#  source              = "terraform-aviatrix-modules/aws-transit/aviatrix"
+#  version             = "4.0.1"
+#  account             = var.aws_account_name
+#  region              = var.aws_transit1_region
+#  name                = var.aws_transit1_name
+#  cidr                = var.aws_transit1_cidr
+#  ha_gw               = var.ha_enabled
+#  prefix              = false
+#  instance_size       = var.aws_transit_instance_size
+#  enable_segmentation = true
+#}
 
 # AWS Spoke Modules
-module "aws_spoke_1" {
-  source          = "terraform-aviatrix-modules/aws-spoke/aviatrix"
-  version         = "4.0.1"
-  account         = var.aws_account_name
-  region          = var.aws_spoke1_region
-  name            = var.aws_spoke1_name
-  cidr            = var.aws_spoke1_cidr
-  instance_size   = var.aws_spoke_instance_size
-  ha_gw           = var.ha_enabled
-  prefix          = false
-  suffix          = false
-  transit_gw      = module.aws_transit_1.transit_gateway.gw_name
-}
+#module "aws_spoke_1" {
+#  source          = "terraform-aviatrix-modules/aws-spoke/aviatrix"
+#  version         = "4.0.1"
+#  account         = var.aws_account_name
+#  region          = var.aws_spoke1_region
+#  name            = var.aws_spoke1_name
+#  cidr            = var.aws_spoke1_cidr
+#  instance_size   = var.aws_spoke_instance_size
+#  ha_gw           = var.ha_enabled
+#  prefix          = false
+#  suffix          = false
+#  transit_gw      = module.aws_transit_1.transit_gateway.gw_name
+#}
 
-module "aws_spoke_2" {
-  source          = "terraform-aviatrix-modules/aws-spoke/aviatrix"
-  version         = "4.0.1"
-  account         = var.aws_account_name
-  region          = var.aws_spoke1_region
-  name            = var.aws_spoke2_name
-  cidr            = var.aws_spoke2_cidr
-  instance_size   = var.aws_spoke_instance_size
-  ha_gw           = var.ha_enabled
-  prefix          = false
-  suffix          = false
-  transit_gw      = module.aws_transit_1.transit_gateway.gw_name
-}
-
-module "aws_spoke_3" {
-  source          = "terraform-aviatrix-modules/aws-spoke/aviatrix"
-  version         = "4.0.1"
-  account         = var.aws_account_name
-  region          = var.aws_spoke1_region
-  name            = var.aws_spoke3_name
-  cidr            = var.aws_spoke3_cidr
-  instance_size   = var.aws_spoke_instance_size
-  ha_gw           = var.ha_enabled
-  prefix          = false
-  suffix          = false
-  transit_gw      = module.aws_transit_1.transit_gateway.gw_name
-}
+[for hub in transit.list : "${hub}.cidr"]
