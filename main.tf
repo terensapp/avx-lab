@@ -6,21 +6,18 @@ locals {
 module "aws_transit_1" {
 
   for_each = [for t in local.avx.transit: {
-    name = t
-    cidr = t.cidr
 
+    source              = "terraform-aviatrix-modules/aws-transit/aviatrix"
+    version             = "4.0.1"
+    account             = "aws-main"
+    region              = t.region
+    name                = t
+    cidr                = t.cidr
+    ha_gw               = var.ha_enabled
+    prefix              = false
+    instance_size       = var.aws_transit_instance_size
+    enable_segmentation = true
   }]
-
-    #source              = "terraform-aviatrix-modules/aws-transit/aviatrix"
-    #version             = "4.0.1"
-    #account             = var.aws_account_name
-    #region              = local.avx.transit
-    #name                = var.aws_transit1_name
-    #cidr                = var.aws_transit1_cidr
-    #ha_gw               = var.ha_enabled
-    #prefix              = false
-    #instance_size       = var.aws_transit_instance_size
-    #enable_segmentation = true
 }
 
 # AWS Spoke Modules
