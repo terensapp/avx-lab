@@ -1,7 +1,3 @@
-variable "json_data" {
-  default = jsondecode(file("${path.module}/avx.json"))
-}
-
 variable "username" {
   default = "admin"
 }
@@ -16,6 +12,10 @@ variable "host_password" {
 }
 
 variable "aws_account_name" {
+}
+
+variable "defaultregion" {
+  default = "us-east-2"
 }
 
 variable "aws_transit_instance_size" {
