@@ -61,11 +61,3 @@ variable "ha_enabled" {
   type    = bool
   default = false
 }
-
-variable "transit" {
-  type = list(object({
-    account = string
-    cidr = string
-    region = string
-  }))
-}
