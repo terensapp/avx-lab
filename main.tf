@@ -1,16 +1,28 @@
+locals {
+  avx = jsondecode(file("${path.module}/avx.json"))
+}
+
 # AWS Transit Modules
-#module "aws_transit_1" {
-#  source              = "terraform-aviatrix-modules/aws-transit/aviatrix"
-#  version             = "4.0.1"
-#  account             = var.aws_account_name
-#  region              = var.aws_transit1_region
-#  name                = var.aws_transit1_name
-#  cidr                = var.aws_transit1_cidr
-#  ha_gw               = var.ha_enabled
-#  prefix              = false
-#  instance_size       = var.aws_transit_instance_size
-#  enable_segmentation = true
-#}
+module "aws_transit_1" {
+
+  for_each = [for t in local.avx.transit: {
+    name = t
+    cidr = t.cidr
+
+  }]
+
+    #source              = "terraform-aviatrix-modules/aws-transit/aviatrix"
+    #version             = "4.0.1"
+    #account             = var.aws_account_name
+    #region              = local.avx.transit
+    #name                = var.aws_transit1_name
+    #cidr                = var.aws_transit1_cidr
+    #ha_gw               = var.ha_enabled
+    #prefix              = false
+    #instance_size       = var.aws_transit_instance_size
+    #enable_segmentation = true
+  }
+}
 
 # AWS Spoke Modules
 #module "aws_spoke_1" {
@@ -26,11 +38,3 @@
 #  suffix          = false
 #  transit_gw      = module.aws_transit_1.transit_gateway.gw_name
 #}
-
-locals {
-  local_data = jsondecode(file("${path.module}/avx.json"))
-}
-
-output "show_locals" {
-  value = local.local_data.transit
-}
