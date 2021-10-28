@@ -27,4 +27,9 @@
 #  transit_gw      = module.aws_transit_1.transit_gateway.gw_name
 #}
 
-[for hub in transit.list : "${hub}.cidr"]
+locals {
+  local_data = jsondecode(file("${path.module}/avx.json"))
+}
+
+output "show_locals" {
+  value = local.local_data.transit
