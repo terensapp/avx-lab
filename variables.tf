@@ -1,3 +1,7 @@
+variable "json_data" {
+  default = jsondecode(file("${path.module}/avx.json"))
+}
+
 variable "username" {
   default = "admin"
 }
@@ -56,4 +60,12 @@ variable "ec2_key_name" {
 variable "ha_enabled" {
   type    = bool
   default = false
+}
+
+variable "transit" {
+  type = list(object({
+    account = string
+    cidr = string
+    region = string
+  }))
 }

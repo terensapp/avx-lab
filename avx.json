@@ -1,6 +1,6 @@
 {
-    "default-region": "us-east-2",
-    
+    "defaultregion": "us-east-2",
+
     "transit": {
         "aws-east2-transit1":{
             "account": "aws-main",

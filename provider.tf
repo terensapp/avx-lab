@@ -6,5 +6,5 @@ provider "aviatrix" {
 
 provider "aws" {
   alias  = "ohio"
-  region = var.local_data.default-region
+  region = var.json_data.defaultregion
 }
