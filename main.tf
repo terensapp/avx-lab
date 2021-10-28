@@ -21,7 +21,6 @@ module "aws_transit_1" {
     #prefix              = false
     #instance_size       = var.aws_transit_instance_size
     #enable_segmentation = true
-  }
 }
 
 # AWS Spoke Modules
