@@ -33,3 +33,4 @@ locals {
 
 output "show_locals" {
   value = local.local_data.transit
+}
