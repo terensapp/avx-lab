@@ -5,10 +5,11 @@ locals {
 # AWS Transit Modules
 module "aws_transit_1" {
 
-  for_each = [for t in local.avx.transit: {
-
     source              = "terraform-aviatrix-modules/aws-transit/aviatrix"
     version             = "4.0.1"
+
+  for_each = [for t in local.avx.transit: {
+
     account             = "aws-main"
     region              = t.region
     name                = t
