@@ -29,14 +29,14 @@
 #  transit_gw      = module.aws_transit_1.transit_gateway.gw_name
 #}
 
-module "aws_transit_1" {
+module "aws_transit" {
   for_each = var.gateways.transit
   source              = "terraform-aviatrix-modules/aws-transit/aviatrix"
   version             = "4.0.1"
-  account             = "aws-main"
-  region              = "us-east-2"
+  account             = var.gateways.transit.${each.key}.account
+  region              = var.gateways.transit.${each.key}.region
   name                = "${each.key}"
-  cidr                = "10.110.0.0/16"
+  cidr                = var.gateways.transit.${each.key}.cidr
   ha_gw               = var.ha_enabled
   prefix              = false
   instance_size       = var.aws_transit_instance_size
