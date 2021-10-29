@@ -1,7 +1,3 @@
-locals {
-  avx = jsondecode(file("${path.module}/avx.json"))
-}
-
 # AWS Transit Modules
 #module "aws_transit_1" {
 
