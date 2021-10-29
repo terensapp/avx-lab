@@ -33,10 +33,10 @@ module "aws_transit" {
   for_each = var.gateways.transit
   source              = "terraform-aviatrix-modules/aws-transit/aviatrix"
   version             = "4.0.1"
-  account             = ${lookup(each.value, "account")}
-  region              = ${lookup(each.value, "region")}
+  account             = "${lookup(each.value, "account")}"
+  region              = "${lookup(each.value, "region")}"
   name                = "${each.key}"
-  cidr                = ${lookup(each.value, "cidr")}
+  cidr                = "${lookup(each.value, "cidr")}"
   ha_gw               = var.ha_enabled
   prefix              = false
   instance_size       = var.aws_transit_instance_size
