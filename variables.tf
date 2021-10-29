@@ -67,5 +67,6 @@ variable "gateways" {
         account = string
         region = string
         cidr = string
+        transit = optional(string)
       })))
 }
