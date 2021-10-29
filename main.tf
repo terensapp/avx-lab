@@ -29,6 +29,8 @@
 #  transit_gw      = module.aws_transit_1.transit_gateway.gw_name
 #}
 
-output "test" {
-  value = var.gateways.transit
+for transit var.gateways.transit : {
+  output "GW" {
+    value = transit.cidr
+  }
 }

@@ -8,7 +8,7 @@ gateways = {
         "aws-west2-transit2" = {
             account         = "aws-main"
             region         = "us-west-2"
-            cidr   = "10.210.00/16"
+            cidr   = "10.210.0.0/16"
         }
     },
     spoke = {
