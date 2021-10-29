@@ -16,11 +16,13 @@ gateways = {
             account         = "aws-main"
             region         = "us-east-2"
             cidr   = "10.111.0.0/16"
+            transit = "aws-east2-transit1"
         },
         "aws-east2-spoke2" = {
             account         = "aws-main"
             region         = "us-east-2"
             cidr   = "10.112.00/16"
+            transit = "aws-east2-transit1"
         }
     }
 }

@@ -41,5 +41,5 @@ module "aws_spoke_1" {
   ha_gw           = var.ha_enabled
   prefix          = false
   suffix          = false
-  transit_gw      = contains(keys(var.gateways.transit),"${lookup(each.value, "region")}")
+  transit_gw      = "${lookup(each.value, "transit")}"
 }
