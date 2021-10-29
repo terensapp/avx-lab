@@ -22,7 +22,7 @@ gateways = {
             account         = "aws-main"
             region         = "us-east-2"
             cidr   = "10.112.00/16"
-            transit = "aws-east2-transit1"
+            transit = "aws-east2-transit1
         }
     }
 }
