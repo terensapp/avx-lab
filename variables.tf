@@ -61,3 +61,11 @@ variable "ha_enabled" {
   type    = bool
   default = false
 }
+
+variable "gateways" {
+  type = map(map(map(object({
+        account = string
+        region = string
+        cidr = string
+      }))))
+}
