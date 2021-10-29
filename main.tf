@@ -34,9 +34,9 @@ module "aws_transit_1" {
   source              = "terraform-aviatrix-modules/aws-transit/aviatrix"
   version             = "4.0.1"
   account             = "aws-main"
-  region              = "${each.region}"
+  region              = "us-east-2"
   name                = "${each.key}"
-  cidr                = "${each.cidr}"
+  cidr                = "10.110.0.0/16"
   ha_gw               = var.ha_enabled
   prefix              = false
   instance_size       = var.aws_transit_instance_size
