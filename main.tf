@@ -23,7 +23,7 @@ module "aws_spoke" {
   name            = "${each.key}"
   cidr            = "${lookup(each.value, "cidr")}"
   instance_size   = var.aws_spoke_instance_size
-  ha_gw           = tobool("${lookup(each.value, "ha_enabled", "false")}")
+  ha_gw           = tobool("${lookup(each.value, "ha_enabled", false)}")
   prefix          = false
   suffix          = false
   transit_gw      = "${lookup(each.value, "transit")}"
