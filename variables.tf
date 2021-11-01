@@ -63,7 +63,7 @@ variable "gateways" {
         region = string
         cidr = string
         transit = optional(string)
-        ha_enabled = optional(bool)
+        ha_enabled = optional(string)
         attach_host = optional(bool)
       })))
 }
