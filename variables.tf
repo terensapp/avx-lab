@@ -57,16 +57,13 @@ variable "ec2_key_name" {
   default = "avx-terenmbp"
 }
 
-variable "ha_enabled" {
-  type    = bool
-  default = false
-}
-
 variable "gateways" {
   type = map(map(object({
         account = string
         region = string
         cidr = string
         transit = optional(string)
+        ha_enabled = optional(bool)
+        attach_host = optional(bool)
       })))
 }

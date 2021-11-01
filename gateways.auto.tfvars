@@ -5,10 +5,11 @@ gateways = {
             region         = "us-east-2"
             cidr   = "10.110.0.0/16"
         },
-        "aws-west2-transit2" = {
+        "aws-west2-transit1" = {
             account         = "aws-main"
             region         = "us-west-2"
             cidr   = "10.210.0.0/16"
+            ha_enabled = true
         }
     },
     spoke = {
@@ -28,13 +29,13 @@ gateways = {
             account         = "aws-main"
             region         = "us-west-2"
             cidr   = "10.211.0.0/16"
-            transit = "aws-west2-transit2-transit"
+            transit = "aws-west2-transit1-transit"
         },
         "aws-west2-spoke2" = {
             account         = "aws-main"
             region         = "us-west-2"
             cidr   = "10.212.0.0/16"
-            transit = "aws-west2-transit2-transit"
+            transit = "aws-west2-transit1-transit"
         }
     }
 }
