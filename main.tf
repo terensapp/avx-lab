@@ -9,6 +9,7 @@ module "aws_transit" {
   name                = "${each.key}"
   cidr                = "${lookup(each.value, "cidr")}"
   ha_gw               = false
+  ha_gw               = "${lookup(each.value, "ha_enabled")}"
   prefix              = false
   instance_size       = var.aws_transit_instance_size
   enable_segmentation = true
@@ -23,7 +24,8 @@ module "aws_spoke" {
   name            = "${each.key}"
   cidr            = "${lookup(each.value, "cidr")}"
   instance_size   = var.aws_spoke_instance_size
-  ha_gw           = tobool(try("${lookup(each.value, "ha_enabled", false)}","false"))
+  ha_gw           = false
+  ha_gw           = "${lookup(each.value, "ha_enabled")}"
   prefix          = false
   suffix          = false
   transit_gw      = "${lookup(each.value, "transit")}"
