@@ -8,7 +8,7 @@ module "aws_transit" {
   region              = "${lookup(each.value, "region")}"
   name                = "${each.key}"
   cidr                = "${lookup(each.value, "cidr")}"
-  ha_gw               = try(${lookup(each.value, "ha_enabled")}, false)
+  ha_gw               = try("${lookup(each.value, "ha_enabled")}", false)
   prefix              = false
   instance_size       = var.aws_transit_instance_size
   enable_segmentation = true
