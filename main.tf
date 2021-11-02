@@ -27,7 +27,15 @@ module "aws_spoke" {
   ha_gw           = coalesce("${lookup(each.value, "ha_enabled")}",false)
   prefix          = false
   suffix          = false
-  transit_gw      = "${lookup(each.value, "transit")}"
+  #transit_gw      = "${lookup(each.value, "transit")}"
 
-  depends_on = [module.aws_transit]
+  #depends_on = [module.aws_transit]
+}
+
+resource "aviatrix_spoke_transit_attachment" "test_attachment" {
+  for_each = var.gateways.spoke
+  spoke_gw_name   = "${each.key}"
+  transit_gw_name = "${lookup(each.value, "transit")}"
+
+  depends_on = [module.aws_transit, module.aws_spoke]
 }
