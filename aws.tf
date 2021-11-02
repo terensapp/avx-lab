@@ -42,7 +42,7 @@ module "security_group_hosts" {
     ingress_rules       = ["http-80-tcp", "ssh-tcp", "all-icmp"]
     egress_rules        = ["all-all"]
 
-    #depends_on = [module.aws_transit, module.aws_spoke]
+    depends_on = [module.aws_transit, module.aws_spoke]
 }
 
 module "aws_spoke_hosts" {
@@ -59,7 +59,7 @@ module "aws_spoke_hosts" {
     associate_public_ip_address = true
     user_data_base64            = base64encode(local.host_user_data)
 
-    #depends_on = [module.aws_transit, module.aws_spoke, module.security_group_hosts]
+    depends_on = [module.aws_transit, module.aws_spoke, module.security_group_hosts]
 }
 
 #output "aws_spoke1_bastion_public_ip" {
