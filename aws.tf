@@ -31,7 +31,7 @@ EOF
 }
 
 module "security_group_hosts" {
-  for_each =  {for key, value in var.gateways.spoke: key => value if value.attach_host}
+  for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false)}
   
   source              = "terraform-aws-modules/security-group/aws"
   version             = "~> 3.0"
