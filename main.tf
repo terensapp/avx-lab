@@ -10,6 +10,7 @@ module "aws_transit" {
   cidr                = "${lookup(each.value, "cidr")}"
   ha_gw               = coalesce("${lookup(each.value, "ha_enabled")}",false)
   prefix              = false
+  suffix              = false
   instance_size       = var.aws_transit_instance_size
   enable_segmentation = true
 }
@@ -27,4 +28,6 @@ module "aws_spoke" {
   prefix          = false
   suffix          = false
   transit_gw      = "${lookup(each.value, "transit")}"
+
+  depends_on = [aws_transit]
 }
