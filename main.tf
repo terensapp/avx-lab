@@ -32,9 +32,7 @@ module "aws_transit" {
 #}
 module "aws_spoke" {
   for_each = { for spoke in var.gateways.spoke : spoke.account => "aws-main" }
-
-    site_name         = each.value.site_name
-    site_url          = each.value.site_url
+  
     source          = "terraform-aviatrix-modules/aws-spoke/aviatrix"
     version         = "4.0.1"
     account         = each.value.account
