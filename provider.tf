@@ -5,6 +5,11 @@ provider "aviatrix" {
 }
 
 provider "aws" {
-  alias  = "ohio"
-  region = var.defaultregion
+  alias  = "us-east-2"
+  region = "us-east-2"
+}
+
+provider "aws" {
+  alias  = "us-west-2"
+  region = "us-west-2"
 }
