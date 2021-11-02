@@ -2,7 +2,7 @@
 # Data source to get AMI details
 ##################################################################
 data "aws_ami" "ubuntu" {
-  region = "us-east-2"
+  provider    = aws.ohio
   most_recent = true
   filter {
     name   = "name"
@@ -41,7 +41,7 @@ module "security_group_hosts" {
     ingress_cidr_blocks = ["0.0.0.0/0"]
     ingress_rules       = ["http-80-tcp", "ssh-tcp", "all-icmp"]
     egress_rules        = ["all-all"]
-    region              = each.value.region
+
     depends_on = [module.aws_transit, module.aws_spoke]
 }
 
@@ -58,7 +58,6 @@ module "aws_spoke_hosts" {
     vpc_security_group_ids      = [module.security_group_hosts["${each.key}"].this_security_group_id]
     associate_public_ip_address = true
     user_data_base64            = base64encode(local.host_user_data)
-    region                      = each.value.region
 
     depends_on = [module.aws_transit, module.aws_spoke, module.security_group_hosts]
 }
