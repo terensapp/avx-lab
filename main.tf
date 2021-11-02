@@ -1,7 +1,7 @@
 # AWS Transit Modules
 
 module "aws_transit" {
-  for_each = var.gateways.transit
+  for_each =  {for key, value in var.gateways.transit: key => value if value.account == var.accounts.aws}
   source              = "terraform-aviatrix-modules/aws-transit/aviatrix"
   version             = "4.0.1"
   account             = each.value.account
