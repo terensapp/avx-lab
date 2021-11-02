@@ -27,6 +27,7 @@ module "aws_spoke" {
   ha_gw           = coalesce("${lookup(each.value, "ha_enabled")}",false)
   prefix          = false
   suffix          = false
+  attached        = false
   #transit_gw      = "${lookup(each.value, "transit")}"
 
   #depends_on = [module.aws_transit]
