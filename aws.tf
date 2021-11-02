@@ -44,6 +44,7 @@ module "security_group_hosts" {
     providers = {
       aws = aws.ohio
     }
+    depends_on = [module.aws_transit, module.aws_spoke]
 }
 
 module "aws_spoke_hosts" {
@@ -62,6 +63,8 @@ module "aws_spoke_hosts" {
     providers = {
       aws = aws.ohio
     }
+
+    depends_on = [module.aws_transit, module.aws_spoke, module.security_group_hosts]
 }
 
 #output "aws_spoke1_bastion_public_ip" {
