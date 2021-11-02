@@ -32,7 +32,7 @@ module "aws_spoke" {
   transit_gw      = null
 }
 
-resource "aviatrix_spoke_transit_attachment" "test_attachment" {
+resource "aviatrix_spoke_transit_attachment" "attach_gateways" {
   for_each = var.gateways.spoke
   spoke_gw_name   = each.key
   transit_gw_name = each.value.transit

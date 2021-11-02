@@ -18,6 +18,7 @@ gateways = {
             region         = "us-east-2"
             cidr   = "10.111.0.0/16"
             transit = "aws-east2-transit1"
+            attach_host = true
         },
         "aws-east2-spoke2" = {
             account         = "aws-main"

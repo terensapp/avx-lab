@@ -30,19 +30,25 @@ sudo echo "<html><h1>Aviatrix is awesome</h1></html>" > /var/www/html/index.html
 EOF
 }
 
-#module "security_group_spoke1" {
-#  source              = "terraform-aws-modules/security-group/aws"
-#  version             = "~> 3.0"
-#  name                = "security_group_spoke1"
-#  description         = "Security group for example usage with EC2 instance"
-#  vpc_id              = module.aws_spoke_1.vpc.vpc_id
-#  ingress_cidr_blocks = ["0.0.0.0/0"]
-#  ingress_rules       = ["http-80-tcp", "ssh-tcp", "all-icmp"]
-#  egress_rules        = ["all-all"]
-#  providers = {
-#    aws = aws.ohio
-#  }
-#}
+module "security_group_hosts" {
+  for_each =  {for key, value in var.gateways.spoke: key => value if value.attach_host}
+  
+  account         = each.value.account
+  region          = each.value.region
+  name            = each.key
+
+  source              = "terraform-aws-modules/security-group/aws"
+  version             = "~> 3.0"
+  name                = "test_host_sg"
+  description         = "Security group for example usage with EC2 instance"
+  vpc_id              = module.aws_spoke["${each.key}"].vpc.vpc_id
+  ingress_cidr_blocks = ["0.0.0.0/0"]
+  ingress_rules       = ["http-80-tcp", "ssh-tcp", "all-icmp"]
+  egress_rules        = ["all-all"]
+  providers = {
+    aws = aws.ohio
+  }
+}
 
 #module "aws_spoke1_bastion" {
 #  source                      = "terraform-aws-modules/ec2-instance/aws"
