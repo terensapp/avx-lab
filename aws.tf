@@ -16,7 +16,7 @@ data "aws_ami" "ubuntu" {
 }
 
 locals {
-  bu1_bastion_user_data = <<EOF
+  host_user_data = <<EOF
 #!/bin/bash
 sudo hostnamectl set-hostname "BU1-Bastion"
 sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
@@ -31,7 +31,7 @@ EOF
 }
 
 module "security_group_hosts" {
-  for_each =  {for key, value in var.gateways.spoke: key => value if value.attach_host == coalesce(value.attach_host,false)}
+  for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false)}
   
     source              = "terraform-aws-modules/security-group/aws"
     version             = "~> 3.0"
@@ -46,22 +46,23 @@ module "security_group_hosts" {
     }
 }
 
-#module "aws_spoke1_bastion" {
-#  source                      = "terraform-aws-modules/ec2-instance/aws"
-#  version                     = "2.21.0"
-#  instance_type               = var.aws_test_instance_size
-#  name                        = "${var.aws_spoke1_name}-bastion"
-#  ami                         = data.aws_ami.ubuntu.id
-#  key_name                    = var.ec2_key_name
-#  instance_count              = 1
-#  subnet_id                   = module.aws_spoke_1.vpc.public_subnets[0].subnet_id
-#  vpc_security_group_ids      = [module.security_group_spoke1.this_security_group_id]
-#  associate_public_ip_address = true
-#  user_data_base64            = base64encode(local.bu1_bastion_user_data)
-#  providers = {
-#    aws = aws.ohio
-#  }
-#}
+module "aws_spoke_hosts" {
+  for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false)}
+    source                      = "terraform-aws-modules/ec2-instance/aws"
+    version                     = "2.21.0"
+    instance_type               = var.aws_test_instance_size
+    name                        = "${each.key}-host"
+    ami                         = data.aws_ami.ubuntu.id
+    key_name                    = var.ec2_key_name
+    instance_count              = 1
+    subnet_id                   = module.aws_spoke["${each.key}"].vpc.public_subnets[0].subnet_id
+    vpc_security_group_ids      = [module.security_group_hosts["${each.key}"].this_security_group_id]
+    associate_public_ip_address = true
+    user_data_base64            = base64encode(local.host_user_data)
+    providers = {
+      aws = aws.ohio
+    }
+}
 
 #output "aws_spoke1_bastion_public_ip" {
 #  value = module.aws_spoke1_bastion.public_ip
