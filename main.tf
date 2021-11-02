@@ -28,7 +28,7 @@ module "aws_spoke" {
   prefix          = false
   suffix          = false
   attached        = false
-  #transit_gw      = "${lookup(each.value, "transit")}"
+  transit_gw      = null
 
   #depends_on = [module.aws_transit]
 }
