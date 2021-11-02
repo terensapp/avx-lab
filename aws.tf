@@ -33,10 +33,6 @@ EOF
 module "security_group_hosts" {
   for_each =  {for key, value in var.gateways.spoke: key => value if value.attach_host}
   
-  account         = each.value.account
-  region          = each.value.region
-  name            = each.key
-
   source              = "terraform-aws-modules/security-group/aws"
   version             = "~> 3.0"
   name                = "test_host_sg"
