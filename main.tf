@@ -21,11 +21,11 @@ module "aws_spoke" {
   source          = "terraform-aviatrix-modules/aws-spoke/aviatrix"
   version         = "4.0.1"
   account         = each.value.account
-  region          = "${lookup(each.value, "region")}"
-  name            = "${each.key}"
-  cidr            = "${lookup(each.value, "cidr")}"
+  region          = each.value.region
+  name            = each.key
+  cidr            = each.value.cidr
   instance_size   = var.aws_spoke_instance_size
-  ha_gw           = coalesce("${lookup(each.value, "ha_enabled")}",false)
+  ha_gw           = coalesce(each.value.ha_enabled,false)
   prefix          = false
   suffix          = false
   attached        = false
