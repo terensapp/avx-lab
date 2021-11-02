@@ -41,6 +41,11 @@ module "security_group_hosts" {
     ingress_cidr_blocks = ["0.0.0.0/0"]
     ingress_rules       = ["http-80-tcp", "ssh-tcp", "all-icmp"]
     egress_rules        = ["all-all"]
+
+    providers = {
+      aws = aws.ohio
+    }
+
     depends_on = [module.aws_transit, module.aws_spoke]
 }
 
