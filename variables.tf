@@ -57,6 +57,14 @@ variable "ec2_key_name" {
   default = "avx-terenmbp"
 }
 
+variable "accounts" {
+  type = object({
+        aws = optional(string)
+        azure = optional(string)
+        gcloud = optional(string)
+      })
+}
+
 variable "gateways" {
   type = map(map(object({
         account = string

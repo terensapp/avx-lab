@@ -16,7 +16,7 @@ module "aws_transit" {
 }
 
 module "aws_spoke" {
-  for_each =  {for key, value in var.gateways.spoke: key => value if value.account == "aws-main1"}
+  for_each =  {for key, value in var.gateways.spoke: key => value if value.account == var.accounts.aws}
   
   source          = "terraform-aviatrix-modules/aws-spoke/aviatrix"
   version         = "4.0.1"
