@@ -32,12 +32,12 @@ module "aws_transit" {
 #}
 module "aws_spoke" {
   for_each = { for spoke in var.gateways.spoke : spoke.account => "aws-main" }
-  
+
     source          = "terraform-aviatrix-modules/aws-spoke/aviatrix"
     version         = "4.0.1"
     account         = each.value.account
     region          = each.value.region
-    name            = spoke
+    name            = each.key
     cidr            = each.value.cidr
     instance_size   = var.aws_spoke_instance_size
     ha_gw           = coalesce("${lookup(each.value, "ha_enabled")}",false)
