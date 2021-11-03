@@ -65,8 +65,6 @@ module "aws_spoke_hosts_useast2" {
     providers = {
       aws = "aws.us-east-2"
     }
-
-    depends_on = [module.aws_transit, module.aws_spoke, module.security_group_hosts]
 }
 
 ## Modules for US West 2
@@ -104,8 +102,6 @@ module "aws_spoke_hosts_uswest2" {
     providers = {
       aws = "aws.us-west-2"
     }
-
-    depends_on = [module.aws_transit, module.aws_spoke, module.security_group_hosts]
 }
 
 #output "aws_spoke1_bastion_public_ip" {
