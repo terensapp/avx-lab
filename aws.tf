@@ -42,6 +42,9 @@ module "security_group_hosts" {
     ingress_rules       = ["http-80-tcp", "ssh-tcp", "all-icmp"]
     egress_rules        = ["all-all"]
     #region              = "${lookup(each.value, "region")}"
+    providers = {
+      aws = aws.${lookup(each.value, "region")}
+    }
 
     depends_on = [module.aws_transit, module.aws_spoke]
 }
@@ -60,6 +63,9 @@ module "aws_spoke_hosts" {
     associate_public_ip_address = true
     user_data_base64            = base64encode(local.host_user_data)
     #region                      = "${lookup(each.value, "region")}"
+    providers = {
+      aws = aws.${lookup(each.value, "region")}
+    }
 
     depends_on = [module.aws_transit, module.aws_spoke, module.security_group_hosts]
 }
