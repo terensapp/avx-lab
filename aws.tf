@@ -2,7 +2,7 @@
 # Data source to get AMI details
 ##################################################################
 data "aws_ami" "ubuntu" {
-  provider    = aws.ohio
+  provider    = aws.us-east-2
   most_recent = true
   filter {
     name   = "name"
@@ -43,7 +43,7 @@ module "security_group_hosts" {
     egress_rules        = ["all-all"]
 
     providers = {
-      aws = aws.ohio
+      aws = aws.us-east-2
     }
 
     depends_on = [module.aws_transit, module.aws_spoke]
@@ -64,7 +64,7 @@ module "aws_spoke_hosts" {
     user_data_base64            = base64encode(local.host_user_data)
 
     providers = {
-      aws = aws.ohio
+      aws = aws.us-east-2
     }
 
     depends_on = [module.aws_transit, module.aws_spoke, module.security_group_hosts]
