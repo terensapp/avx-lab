@@ -44,7 +44,7 @@ module "security_group_hosts_useast2" {
     egress_rules        = ["all-all"]
     
     providers = {
-      aws = "aws.us-east-2"
+      aws = aws.us-east-2
     }
 }
 
@@ -63,7 +63,7 @@ module "aws_spoke_hosts_useast2" {
     user_data_base64            = base64encode(local.host_user_data)
     
     providers = {
-      aws = "aws.us-east-2"
+      aws = aws.us-east-2
     }
 }
 
@@ -81,7 +81,7 @@ module "security_group_hosts_uswest2" {
     egress_rules        = ["all-all"]
     
     providers = {
-      aws = "aws.us-west-2"
+      aws = aws.us-west-2
     }
 }
 
@@ -100,10 +100,6 @@ module "aws_spoke_hosts_uswest2" {
     user_data_base64            = base64encode(local.host_user_data)
     
     providers = {
-      aws = "aws.us-west-2"
+      aws = aws.us-west-2
     }
 }
-
-#output "aws_spoke1_bastion_public_ip" {
-#  value = module.aws_spoke1_bastion.public_ip
-#}
