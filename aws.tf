@@ -30,27 +30,19 @@ sudo echo "<html><h1>Aviatrix is awesome</h1></html>" > /var/www/html/index.html
 EOF
 }
 
-resource "aws_security_group" "allow_ssh" {
+module "security_group_hosts" {
   for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false)}
   
-  name        = "allow_ssh"
-  description = "Allow SSH inbound traffic"
-  vpc_id      = module.aws_spoke["${each.key}"].vpc.vpc_id
-  region = each.value.region
-
-  ingress {
-    from_port   = -1
-    to_port     = -1
-    protocol    = "icmp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port        = -1
-    to_port          = -1
-    protocol         = "icmpv6"
-    ipv6_cidr_blocks = ["::/0"]
-  }
+    source              = "terraform-aws-modules/security-group/aws"
+    version             = "~> 3.0"
+    name                = "test_host_sg"
+    description         = "Security group for example usage with EC2 instance"
+    vpc_id              = module.aws_spoke["${each.key}"].vpc.vpc_id
+    ingress_cidr_blocks = ["0.0.0.0/0"]
+    ingress_rules       = ["http-80-tcp", "ssh-tcp", "all-icmp"]
+    egress_rules        = ["all-all"]
+    
+    providers = "aws.${each.value.region}"
 }
 
 #module "aws_spoke_hosts" {
@@ -66,7 +58,7 @@ resource "aws_security_group" "allow_ssh" {
 #    vpc_security_group_ids      = [module.security_group_hosts["${each.key}"].this_security_group_id]
 #    associate_public_ip_address = true
 #    user_data_base64            = base64encode(local.host_user_data)
-#    
+    
 #    providers = {
 #      aws = "aws.${each.value.region}"
 #    }
