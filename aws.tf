@@ -38,6 +38,7 @@ module "security_group_hosts" {
     name        = "web-server"
     description = "Security group for web-server with HTTP ports open within VPC"
     vpc_id      = module.aws_spoke["${each.key}"].vpc.vpc_id
+    region = "us-east-2"
 
     ingress_cidr_blocks = ["10.10.0.0/16"]
 }
