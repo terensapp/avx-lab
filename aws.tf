@@ -30,6 +30,8 @@ sudo echo "<html><h1>Aviatrix is awesome</h1></html>" > /var/www/html/index.html
 EOF
 }
 
+region = "us-east-2"
+
 module "security_group_hosts" {
   for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false)}
   
@@ -38,7 +40,6 @@ module "security_group_hosts" {
     name        = "web-server"
     description = "Security group for web-server with HTTP ports open within VPC"
     vpc_id      = module.aws_spoke["${each.key}"].vpc.vpc_id
-    region = "us-east-2"
 
     ingress_cidr_blocks = ["10.10.0.0/16"]
 }
