@@ -43,7 +43,7 @@ module "security_group_hosts" {
     egress_rules        = ["all-all"]
     
     providers = {
-      aws = "us-east-2"
+      aws = aws.us-east-2
     }
 }
 
@@ -62,7 +62,7 @@ module "aws_spoke_hosts" {
     user_data_base64            = base64encode(local.host_user_data)
     
     providers = {
-      aws = "us-east-2"
+      aws = aws.us-east-2
     }
 
     depends_on = [module.aws_transit, module.aws_spoke, module.security_group_hosts]
