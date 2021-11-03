@@ -44,25 +44,25 @@ module "security_group_hosts_useast2" {
     egress_rules        = ["all-all"]
     
     providers = {
-      aws = aws.ohio
+      aws = aws.us-east-2
     }
 }
 
-module "aws_spoke_hosts_useast2" {
-  for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.region == "us-east-2"}
-    source                      = "terraform-aws-modules/ec2-instance/aws"
-    version                     = "2.21.0"
-    instance_type               = var.aws_test_instance_size
-    name                        = "${each.key}-host"
-    ami                         = data.aws_ami.ubuntu.id
-    key_name                    = var.ec2_key_name
-    instance_count              = 1
-    subnet_id                   = module.aws_spoke["${each.key}"].vpc.public_subnets[0].subnet_id
-    vpc_security_group_ids      = [module.security_group_hosts_useast2["${each.key}"].this_security_group_id]
-    associate_public_ip_address = true
-    user_data_base64            = base64encode(local.host_user_data)
+#module "aws_spoke_hosts_useast2" {
+#  for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.region == "us-east-2"}
+#    source                      = "terraform-aws-modules/ec2-instance/aws"
+#    version                     = "2.21.0"
+#    instance_type               = var.aws_test_instance_size
+#    name                        = "${each.key}-host"
+#    ami                         = data.aws_ami.ubuntu.id
+#    key_name                    = var.ec2_key_name
+#    instance_count              = 1
+#    subnet_id                   = module.aws_spoke["${each.key}"].vpc.public_subnets[0].subnet_id
+#    vpc_security_group_ids      = [module.security_group_hosts_useast2["${each.key}"].this_security_group_id]
+#    associate_public_ip_address = true
+#    user_data_base64            = base64encode(local.host_user_data)
     
-    providers = {
-      aws = aws.ohio
-    }
-}
+#    providers = {
+#      aws = aws.ohio
+#    }
+#}
