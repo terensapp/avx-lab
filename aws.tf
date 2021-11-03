@@ -31,7 +31,7 @@ EOF
 }
 
 module "security_group_hosts" {
-  for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false)}
+  for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.region == "us-east-2"}
   
     source              = "terraform-aws-modules/security-group/aws"
     version             = "~> 3.0"
@@ -50,7 +50,7 @@ module "security_group_hosts" {
 }
 
 module "aws_spoke_hosts" {
-  for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false)}
+  for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.region == "us-east-2"}
     source                      = "terraform-aws-modules/ec2-instance/aws"
     version                     = "2.21.0"
     instance_type               = var.aws_test_instance_size
