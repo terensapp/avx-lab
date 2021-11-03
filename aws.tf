@@ -43,7 +43,7 @@ module "security_group_hosts" {
     egress_rules        = ["all-all"]
     #region              = "${lookup(each.value, "region")}"
     providers = {
-      aws = aws.${lookup(each.value, "region")}
+      aws = "${lookup(each.value, "region")}"
     }
 
     depends_on = [module.aws_transit, module.aws_spoke]
@@ -64,7 +64,7 @@ module "aws_spoke_hosts" {
     user_data_base64            = base64encode(local.host_user_data)
     #region                      = "${lookup(each.value, "region")}"
     providers = {
-      aws = aws.${lookup(each.value, "region")}
+      aws = "${lookup(each.value, "region")}"
     }
 
     depends_on = [module.aws_transit, module.aws_spoke, module.security_group_hosts]
