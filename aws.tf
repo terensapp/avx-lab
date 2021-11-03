@@ -41,27 +41,28 @@ module "security_group_hosts" {
 
     ingress_cidr_blocks = ["10.10.0.0/16"]
 }
-/*
-module "aws_spoke_hosts" {
-  for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false)}
-    source                      = "terraform-aws-modules/ec2-instance/aws"
-    version                     = "2.21.0"
-    instance_type               = var.aws_test_instance_size
-    name                        = "${each.key}-host"
-    ami                         = data.aws_ami.ubuntu.id
-    key_name                    = var.ec2_key_name
-    instance_count              = 1
-    subnet_id                   = module.aws_spoke["${each.key}"].vpc.public_subnets[0].subnet_id
-    vpc_security_group_ids      = [module.security_group_hosts["${each.key}"].this_security_group_id]
-    associate_public_ip_address = true
-    user_data_base64            = base64encode(local.host_user_data)
-    #region                      = "${lookup(each.value, "region")}"
-    providers = {
-      region = "${lookup(each.value, "region")}"
-    }
 
-    depends_on = [module.aws_transit, module.aws_spoke, module.security_group_hosts]
-}
+#module "aws_spoke_hosts" {
+#  for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false)}
+#    source                      = "terraform-aws-modules/ec2-instance/aws"
+#    version                     = "2.21.0"
+#    instance_type               = var.aws_test_instance_size
+#    name                        = "${each.key}-host"
+#    ami                         = data.aws_ami.ubuntu.id
+#    key_name                    = var.ec2_key_name
+#    instance_count              = 1
+#    subnet_id                   = module.aws_spoke["${each.key}"].vpc.public_subnets[0].subnet_id
+#    vpc_security_group_ids      = [module.security_group_hosts["${each.key}"].this_security_group_id]
+#    associate_public_ip_address = true
+#    user_data_base64            = base64encode(local.host_user_data)
+    #region                      = "${lookup(each.value, "region")}"
+#    providers = {
+#      region = "${lookup(each.value, "region")}"
+#    }
+
+#    depends_on = [module.aws_transit, module.aws_spoke, module.security_group_hosts]
+#}
+
 
 #output "aws_spoke1_bastion_public_ip" {
 #  value = module.aws_spoke1_bastion.public_ip
