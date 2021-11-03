@@ -36,6 +36,7 @@ resource "aws_security_group" "allow_ssh" {
   name        = "allow_ssh"
   description = "Allow SSH inbound traffic"
   vpc_id      = module.aws_spoke["${each.key}"].vpc.vpc_id
+  region = each.value.region
 
   ingress {
     from_port   = -1
