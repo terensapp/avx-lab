@@ -30,10 +30,6 @@ sudo echo "<html><h1>Aviatrix is awesome</h1></html>" > /var/www/html/index.html
 EOF
 }
 
-provider = {
-  region = "us-east-2"
-}
-
 module "security_group_hosts" {
   for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false)}
   
@@ -46,6 +42,9 @@ module "security_group_hosts" {
     ingress_rules       = ["http-80-tcp", "ssh-tcp", "all-icmp"]
     egress_rules        = ["all-all"]
     #region              = "${lookup(each.value, "region")}"
+    providers = {
+      aws = aws.us-east-2
+    }
 }
 
 module "aws_spoke_hosts" {
@@ -62,6 +61,9 @@ module "aws_spoke_hosts" {
     associate_public_ip_address = true
     user_data_base64            = base64encode(local.host_user_data)
     #region                      = "${lookup(each.value, "region")}"
+    providers = {
+      aws = aws.us-east-2
+    }
 
     depends_on = [module.aws_transit, module.aws_spoke, module.security_group_hosts]
 }
