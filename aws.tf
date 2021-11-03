@@ -31,7 +31,7 @@ EOF
 }
 
 ## Modules for US East 2
-module "security_group_hosts" {
+module "security_group_hosts_useast2" {
   for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.region == "us-east-2"}
   
     source              = "terraform-aws-modules/security-group/aws"
@@ -48,7 +48,7 @@ module "security_group_hosts" {
     }
 }
 
-module "aws_spoke_hosts" {
+module "aws_spoke_hosts_useast2" {
   for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.region == "us-east-2"}
     source                      = "terraform-aws-modules/ec2-instance/aws"
     version                     = "2.21.0"
@@ -70,7 +70,7 @@ module "aws_spoke_hosts" {
 }
 
 ## Modules for US West 2
-module "security_group_hosts" {
+module "security_group_hosts_uswest2" {
   for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.region == "us-west-2"}
   
     source              = "terraform-aws-modules/security-group/aws"
@@ -87,7 +87,7 @@ module "security_group_hosts" {
     }
 }
 
-module "aws_spoke_hosts" {
+module "aws_spoke_hosts_uswest2" {
   for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.region == "us-west-2"}
     source                      = "terraform-aws-modules/ec2-instance/aws"
     version                     = "2.21.0"
