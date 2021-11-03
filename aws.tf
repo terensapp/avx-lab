@@ -58,7 +58,7 @@ module "aws_spoke_hosts_useast2" {
     key_name                    = var.ec2_key_name
     instance_count              = 1
     subnet_id                   = module.aws_spoke["${each.key}"].vpc.public_subnets[0].subnet_id
-    vpc_security_group_ids      = [module.security_group_hosts["${each.key}"].this_security_group_id]
+    vpc_security_group_ids      = [module.security_group_hosts_useast2["${each.key}"].this_security_group_id]
     associate_public_ip_address = true
     user_data_base64            = base64encode(local.host_user_data)
     
@@ -95,7 +95,7 @@ module "aws_spoke_hosts_uswest2" {
     key_name                    = var.ec2_key_name
     instance_count              = 1
     subnet_id                   = module.aws_spoke["${each.key}"].vpc.public_subnets[0].subnet_id
-    vpc_security_group_ids      = [module.security_group_hosts["${each.key}"].this_security_group_id]
+    vpc_security_group_ids      = [module.security_group_hosts_uswest2["${each.key}"].this_security_group_id]
     associate_public_ip_address = true
     user_data_base64            = base64encode(local.host_user_data)
     
