@@ -33,22 +33,15 @@ EOF
 module "security_group_hosts" {
   for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false)}
   
-    source              = "terraform-aws-modules/security-group/aws"
-    version             = "~> 3.0"
-    name                = "test_host_sg"
-    description         = "Security group for example usage with EC2 instance"
-    vpc_id              = module.aws_spoke["${each.key}"].vpc.vpc_id
-    ingress_cidr_blocks = ["0.0.0.0/0"]
-    ingress_rules       = ["http-80-tcp", "ssh-tcp", "all-icmp"]
-    egress_rules        = ["all-all"]
-    #region              = "${lookup(each.value, "region")}"
-    providers = {
-      region = "${lookup(each.value, "region")}"
-    }
+    source = "terraform-aws-modules/security-group/aws//modules/http-80"
 
-    depends_on = [module.aws_transit, module.aws_spoke]
+    name        = "web-server"
+    description = "Security group for web-server with HTTP ports open within VPC"
+    vpc_id      = module.aws_spoke["${each.key}"].vpc.vpc_id
+
+    ingress_cidr_blocks = ["10.10.0.0/16"]
 }
-
+/*
 module "aws_spoke_hosts" {
   for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false)}
     source                      = "terraform-aws-modules/ec2-instance/aws"
