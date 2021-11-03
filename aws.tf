@@ -43,9 +43,9 @@ module "security_group_hosts_useast2" {
     ingress_rules       = ["http-80-tcp", "ssh-tcp", "all-icmp"]
     egress_rules        = ["all-all"]
     
-    providers = {
-      aws = aws.us-east-2
-    }
+  providers = {
+    aws = aws.us-east-2
+  }
 }
 
 module "aws_spoke_hosts_useast2" {
@@ -62,7 +62,7 @@ module "aws_spoke_hosts_useast2" {
     associate_public_ip_address = true
     user_data_base64            = base64encode(local.host_user_data)
     
-    providers = {
-      aws = aws.us-east-2
-    }
+  providers = {
+    aws = aws.us-east-2
+  }
 }
