@@ -42,7 +42,7 @@ module "security_group_hosts" {
     ingress_rules       = ["http-80-tcp", "ssh-tcp", "all-icmp"]
     egress_rules        = ["all-all"]
     
-    providers = "aws.${each.value.region}"
+    provider = "aws.${each.value.region}"
 }
 
 #module "aws_spoke_hosts" {
