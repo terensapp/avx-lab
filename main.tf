@@ -49,7 +49,7 @@ module "azure_transit" {
 }
 
 module "azure_spoke" {
-  for_each =  {for key, value in var.gateways.spoke: key => value if value.account == var.accounts.aws}
+  for_each =  {for key, value in var.gateways.spoke: key => value if value.account == var.accounts.azure}
 
     source          = "terraform-aviatrix-modules/azure-spoke/aviatrix"
     version         = "4.0.1"
