@@ -78,11 +78,11 @@ resource "azurerm_network_security_rule" "icmp" {
 
 resource "azurerm_network_interface_security_group_association" "main" {
     for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.account == var.accounts.azure && value.region == "US Central"}
-        network_interface_id      = azurerm_network_interface.main.id
-        network_security_group_id = azurerm_network_security_group.spoke["${each.key}"]-host.id
+        network_interface_id      = azurerm_network_interface.main["${each.key}"].id
+        network_security_group_id = azurerm_network_security_group.spoke-host["${each.key}"]-host.id
 }
 
-resource "azurerm_linux_virtual_machine" "azure_spoke2_vm" {
+resource "azurerm_linux_virtual_machine" "azure_spoke_vm" {
     for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.account == var.accounts.azure && value.region == "US Central"}
         name                            = "${each.key}-host"
         resource_group_name             = module.azure_spoke["${each.key}"].vnet.resource_group
