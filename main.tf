@@ -45,8 +45,7 @@ module "azure_transit" {
     ha_gw           = coalesce(each.value.ha_enabled,false)
     prefix          = false
     suffix          = false
-    attached        = false
-    transit_gw      = null
+    enable_segmentation = true
 }
 
 module "azure_spoke" {
