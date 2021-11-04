@@ -13,6 +13,8 @@ sudo echo "<html><h1>Aviatrix is awesome</h1></html>" > /var/www/html/index.html
 EOF
 }
 
+## Beginning block for us-east-2
+
 resource "aws_key_pair" "key_useast2" {
   provider    = aws.us-east-2
   key_name   = var.ec2_key_name
@@ -72,6 +74,8 @@ module "aws_spoke_hosts_useast2" {
 
     depends_on = [module.security_group_hosts_useast2]
 }
+
+## Beginning block for us-west-2
 
 resource "aws_key_pair" "key_uswest2" {
   provider    = aws.us-west-2
