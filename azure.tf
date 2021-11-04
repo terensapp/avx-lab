@@ -13,7 +13,7 @@ EOF
 }
 
 resource "azurerm_network_interface" "main" {
-    for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.account == var.accounts.azure && value.region == "US Central"}
+    for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.account == var.accounts.azure}
         name                = "${each.key}-nic1"
         resource_group_name = module.azure_spoke["${each.key}"].vnet.resource_group
         location            = each.value.region
@@ -25,14 +25,14 @@ resource "azurerm_network_interface" "main" {
 }
 
 resource "azurerm_network_security_group" "spoke-host" {
-    for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.account == var.accounts.azure && value.region == "US Central"}
+    for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.account == var.accounts.azure}
         name                = "${each.key}-host"
         resource_group_name = module.azure_spoke["${each.key}"].vnet.resource_group
         location            = each.value.region
 }
 
 resource "azurerm_network_security_rule" "http" {
-    for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.account == var.accounts.azure && value.region == "US Central"}
+    for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.account == var.accounts.azure}
         access                      = "Allow"
         direction                   = "Inbound"
         name                        = "http"
@@ -47,7 +47,7 @@ resource "azurerm_network_security_rule" "http" {
 }
 
 resource "azurerm_network_security_rule" "ssh" {
-    for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.account == var.accounts.azure && value.region == "US Central"}
+    for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.account == var.accounts.azure}
         access                      = "Allow"
         direction                   = "Inbound"
         name                        = "ssh"
@@ -62,7 +62,7 @@ resource "azurerm_network_security_rule" "ssh" {
 }
 
 resource "azurerm_network_security_rule" "icmp" {
-    for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.account == var.accounts.azure && value.region == "US Central"}
+    for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.account == var.accounts.azure}
         access                      = "Allow"
         direction                   = "Inbound"
         name                        = "icmp"
@@ -77,13 +77,13 @@ resource "azurerm_network_security_rule" "icmp" {
 }
 
 resource "azurerm_network_interface_security_group_association" "main" {
-    for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.account == var.accounts.azure && value.region == "US Central"}
+    for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.account == var.accounts.azure}
         network_interface_id      = azurerm_network_interface.main["${each.key}"].id
         network_security_group_id = azurerm_network_security_group.spoke-host["${each.key}"].id
 }
 
 resource "azurerm_linux_virtual_machine" "azure_spoke_vm" {
-    for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.account == var.accounts.azure && value.region == "US Central"}
+    for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.account == var.accounts.azure}
         name                            = "${each.key}-host"
         resource_group_name             = module.azure_spoke["${each.key}"].vnet.resource_group
         location                        = each.value.region
