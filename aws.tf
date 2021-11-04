@@ -1,20 +1,3 @@
-##################################################################
-# Data source to get AMI details
-##################################################################
-data "aws_ami" "ubuntu" {
-  provider    = aws.us-east-2
-  most_recent = true
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-  owners = ["099720109477"] # Canonical
-}
-
 locals {
   host_user_data = <<EOF
 #!/bin/bash
@@ -28,6 +11,20 @@ sudo apt autoremove
 sudo /etc/init.d/ssh restart
 sudo echo "<html><h1>Aviatrix is awesome</h1></html>" > /var/www/html/index.html 
 EOF
+}
+
+data "aws_ami_useast2" "ubuntu" {
+  provider    = aws.us-east-2
+  most_recent = true
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  }
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+  owners = ["099720109477"] # Canonical
 }
 
 module "security_group_hosts_useast2" {
@@ -55,7 +52,7 @@ module "aws_spoke_hosts_useast2" {
     version                     = "2.21.0"
     instance_type               = var.aws_test_instance_size
     name                        = "${each.key}-host"
-    ami                         = data.aws_ami.ubuntu.id
+    ami                         = data.aws_ami_useast2.ubuntu.id
     key_name                    = var.ec2_key_name
     instance_count              = 1
     subnet_id                   = module.aws_spoke["${each.key}"].vpc.public_subnets[0].subnet_id
@@ -68,6 +65,20 @@ module "aws_spoke_hosts_useast2" {
     }
 
     depends_on = [module.security_group_hosts_useast2]
+}
+
+data "aws_ami_uswest2" "ubuntu" {
+  provider    = aws.us-west-2
+  most_recent = true
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  }
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+  owners = ["099720109477"] # Canonical
 }
 
 module "security_group_hosts_uswest2" {
@@ -95,7 +106,7 @@ module "aws_spoke_hosts_uswest2" {
     version                     = "2.21.0"
     instance_type               = var.aws_test_instance_size
     name                        = "${each.key}-host"
-    ami                         = data.aws_ami.ubuntu.id
+    ami                         = data.aws_ami_uswest2.ubuntu.id
     key_name                    = var.ec2_key_name
     instance_count              = 1
     subnet_id                   = module.aws_spoke["${each.key}"].vpc.public_subnets[0].subnet_id
