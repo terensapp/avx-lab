@@ -13,7 +13,7 @@ sudo echo "<html><h1>Aviatrix is awesome</h1></html>" > /var/www/html/index.html
 EOF
 }
 
-data "aws_ami_useast2" "ubuntu" {
+data "aws_ami" "ubuntu_useast2" {
   provider    = aws.us-east-2
   most_recent = true
   filter {
@@ -67,7 +67,7 @@ module "aws_spoke_hosts_useast2" {
     depends_on = [module.security_group_hosts_useast2]
 }
 
-data "aws_ami_uswest2" "ubuntu" {
+data "aws_ami" "ubuntu_uswest2" {
   provider    = aws.us-west-2
   most_recent = true
   filter {
@@ -106,7 +106,7 @@ module "aws_spoke_hosts_uswest2" {
     version                     = "2.21.0"
     instance_type               = var.aws_test_instance_size
     name                        = "${each.key}-host"
-    ami                         = data.aws_ami_uswest2.ubuntu.id
+    ami                         = data.aws_ami.ubuntu_uswest2.id
     key_name                    = var.ec2_key_name
     instance_count              = 1
     subnet_id                   = module.aws_spoke["${each.key}"].vpc.public_subnets[0].subnet_id
