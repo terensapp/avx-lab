@@ -9,7 +9,7 @@ gateways = {
             account         = "aws-main"
             region         = "us-west-2"
             cidr   = "10.210.0.0/16"
-            ha_enabled = true
+            #ha_enabled = true
         }
     },
     spoke = {
