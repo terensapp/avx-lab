@@ -70,5 +70,5 @@ resource "aviatrix_spoke_transit_attachment" "attach_gateways" {
   spoke_gw_name   = each.key
   transit_gw_name = each.value.transit
 
-  depends_on = [module.aws_transit, module.aws_spoke]
+  depends_on = [module.aws_transit, module.aws_spoke, module.azure_transit, module.azure_spoke]
 }
