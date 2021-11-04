@@ -13,6 +13,12 @@ sudo echo "<html><h1>Aviatrix is awesome</h1></html>" > /var/www/html/index.html
 EOF
 }
 
+resource "aws_key_pair" "key_useast2" {
+  provider    = aws.us-east-2
+  key_name   = var.ec2_key_name
+  public_key = var.ec2_public_key
+}
+
 data "aws_ami" "ubuntu_useast2" {
   provider    = aws.us-east-2
   most_recent = true
@@ -65,6 +71,12 @@ module "aws_spoke_hosts_useast2" {
     }
 
     depends_on = [module.security_group_hosts_useast2]
+}
+
+resource "aws_key_pair" "key_uswest2" {
+  provider    = aws.us-west-2
+  key_name   = var.ec2_key_name
+  public_key = var.ec2_public_key
 }
 
 data "aws_ami" "ubuntu_uswest2" {
