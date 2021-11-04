@@ -13,7 +13,7 @@ gateways = {
         }
         "az-central-transit1" = {
             account         = "azure-main"
-            region         = "us-central"
+            region         = "Central US"
             cidr   = "172.16.0.0/16"
             #ha_enabled = true
         }
