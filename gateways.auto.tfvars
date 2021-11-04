@@ -49,6 +49,7 @@ gateways = {
             region         = "Central US"
             cidr   = "172.17.0.0/16"
             transit = "az-central-transit1"
+            attach_host = true
         },
         "az-central-spoke2" = {
             account         = "azure-main"
