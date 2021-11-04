@@ -4,7 +4,14 @@ provider "aviatrix" {
   password      = var.password
 }
 
-# provider definitions
+provider "azurerm" {
+  features {}
+  subscription_id = var.azure_subscription_id
+  client_id       = var.azure_client_id
+  client_secret   = var.azure_client_secret
+  tenant_id       = var.azure_tenant_id
+}
+
 provider "aws" {
     alias   = "us-east-1"
     region  = "us-east-1"

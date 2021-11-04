@@ -37,6 +37,10 @@ variable "azure_spoke_instance_size" {
   default = "Standard_B1ms"
 }
 
+variable "azure_transit_instance_size" {
+  default = "Standard_B1ms"
+}
+
 variable "azure_spoke2_region" {
   default = "Canada Central"
 }

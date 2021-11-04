@@ -11,6 +11,12 @@ gateways = {
             cidr   = "10.210.0.0/16"
             #ha_enabled = true
         }
+        "az-central-transit1" = {
+            account         = "azure-main"
+            region         = "us-central"
+            cidr   = "172.16.0.0/16"
+            #ha_enabled = true
+        }
     },
     spoke = {
         aws-east2-spoke1 = {
