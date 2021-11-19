@@ -100,11 +100,7 @@ resource "azurerm_linux_virtual_machine" "azure_spoke_vm" {
             sku       = "18.04-LTS"
             version   = "latest"
         }
-        # source_image_reference {
-        #   publisher = "canonical"
-        #   offer     = "0001-com-ubuntu-server-focal"
-        #   version   = "latest"
-        # }
+
         os_disk {
             storage_account_type = "Standard_LRS"
             caching              = "ReadWrite"

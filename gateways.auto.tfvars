@@ -9,12 +9,6 @@ gateways = {
             account         = "aws-main"
             region         = "us-west-2"
             cidr   = "10.210.0.0/16"
-        },
-        "az-central-transit1" = {
-            account         = "azure-main"
-            region         = "Central US"
-            cidr   = "172.16.0.0/16"
-            #ha_enabled = true
         }
     },
     spoke = {
@@ -43,19 +37,6 @@ gateways = {
             region         = "us-west-2"
             cidr   = "10.212.0.0/16"
             transit = "aws-west2-transit1"
-        },
-        "az-central-spoke1" = {
-            account         = "azure-main"
-            region         = "Central US"
-            cidr   = "172.17.0.0/16"
-            transit = "az-central-transit1"
-            attach_host = true
-        },
-        "az-central-spoke2" = {
-            account         = "azure-main"
-            region         = "Central US"
-            cidr   = "172.18.0.0/16"
-            transit = "az-central-transit1"
         }
     }
 }
