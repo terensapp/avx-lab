@@ -37,6 +37,12 @@ gateways = {
             region         = "us-west-2"
             cidr   = "10.212.0.0/16"
             transit = "aws-west2-transit1"
+        },
+            "aws-west2-spoke3" = {
+            account         = "aws-main"
+            region         = "us-west-2"
+            cidr   = "10.213.0.0/16"
+            transit = "aws-west2-transit1"
         }
     }
 }

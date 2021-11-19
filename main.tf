@@ -72,3 +72,17 @@ resource "aviatrix_spoke_transit_attachment" "attach_gateways" {
 
   depends_on = [module.aws_transit, module.aws_spoke, module.azure_transit, module.azure_spoke]
 }
+
+#module "transit-peering" {
+#  source  = "terraform-aviatrix-modules/mc-transit-peering/aviatrix"
+#  version = "1.0.4"
+
+#  transit_gateways = [
+#    "gw1",
+#    "gw5"
+#  ]
+
+#  excluded_cidrs = [
+#    0.0.0.0/0,
+#  ]
+#}
