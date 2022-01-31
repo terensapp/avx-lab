@@ -11,9 +11,6 @@ variable "controller_ip" {
 variable "host_password" {
 }
 
-variable "aws_account_name" {
-}
-
 variable "defaultregion" {
   default = "us-east-2"
 }
