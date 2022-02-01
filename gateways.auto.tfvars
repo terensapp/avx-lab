@@ -1,7 +1,7 @@
 gateways = {
     transit = {
         aws-east1-transit = {
-            cloud = "aws"
+            cloud = "AWS"
             account         = "aws-main"
             region         = "us-east-1"
             cidr   = "10.110.0.0/16"
@@ -15,7 +15,7 @@ gateways = {
     },
     spoke = {
         aws-east1-spoke1 = {
-            cloud = "aws"
+            cloud = "AWS"
             account         = "aws-main"
             region         = "us-east-1"
             cidr   = "10.111.0.0/16"
