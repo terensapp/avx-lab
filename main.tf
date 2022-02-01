@@ -9,6 +9,6 @@ module "spokes" {
     name             = each.key
     region           = each.value.region
     cidr             = each.value.cidr
-    account          = each.value.region
+    account          = each.value.account
     attached         = false
 }
