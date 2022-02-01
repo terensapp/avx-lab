@@ -1,7 +1,7 @@
 provider "aviatrix" {
-  controller_ip = var.controller_ip
-  username      = var.username
-  password      = var.password
+  controller_ip = var.AVIATRIX_CONTROLLER_IP
+  username      = var.AVIATRIX_USERNAME
+  password      = var.AVIATRIX_PASSWORD
 }
 
 provider "azurerm" {
