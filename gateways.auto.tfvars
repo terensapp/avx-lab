@@ -20,7 +20,7 @@ gateways = {
             region         = "us-east-1"
             cidr   = "10.111.0.0/16"
             transit = "aws-east2-transit"
-            attach_host = true
+            attach_host = false
         },
         az-east-spoke1 = {
             cloud = "Azure"
