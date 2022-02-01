@@ -8,7 +8,6 @@ module "aws_transit" {
     region              = each.value.region
     name                = each.key
     cidr                = each.value.cidr
-    active_mesh         = true
     ha_gw               = coalesce(each.value.ha_enabled,false)
     prefix              = false
     suffix              = false
@@ -25,7 +24,6 @@ module "aws_spoke" {
     region          = each.value.region
     name            = each.key
     cidr            = each.value.cidr
-    active_mesh         = true
     instance_size   = var.aws_spoke_instance_size
     ha_gw           = coalesce(each.value.ha_enabled,false)
     prefix          = false
@@ -43,7 +41,6 @@ module "azure_transit" {
     region          = each.value.region
     name            = each.key
     cidr            = each.value.cidr
-    active_mesh         = true
     instance_size   = var.azure_transit_instance_size
     ha_gw           = coalesce(each.value.ha_enabled,false)
     prefix          = false
@@ -60,7 +57,6 @@ module "azure_spoke" {
     region          = each.value.region
     name            = each.key
     cidr            = each.value.cidr
-    active_mesh         = true
     instance_size   = var.azure_spoke_instance_size
     ha_gw           = coalesce(each.value.ha_enabled,false)
     prefix          = false
