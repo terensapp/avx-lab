@@ -4,7 +4,7 @@ variable "AVIATRIX_CONTROLLER_IP" {
 variable "AVIATRIX_USERNAME" {
 }
 
-variable "AVIATRIX_USERNAME" {
+variable "AVIATRIX_PASSWORD" {
 }
 
 variable "defaultregion" {
