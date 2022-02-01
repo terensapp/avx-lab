@@ -3,7 +3,7 @@
 module "aws_transit" {
   for_each =  {for key, value in var.gateways.transit: key => value if value.account == var.accounts.aws}
     source              = "terraform-aviatrix-modules/aws-transit/aviatrix"
-    version             = "4.0.1"
+    version             = "4.0.3"
     account             = each.value.account
     region              = each.value.region
     name                = each.key
@@ -19,7 +19,7 @@ module "aws_spoke" {
   for_each =  {for key, value in var.gateways.spoke: key => value if value.account == var.accounts.aws}
   
     source          = "terraform-aviatrix-modules/aws-spoke/aviatrix"
-    version         = "4.0.1"
+    version         = "4.0.3"
     account         = each.value.account
     region          = each.value.region
     name            = each.key
@@ -36,7 +36,7 @@ module "azure_transit" {
   for_each =  {for key, value in var.gateways.transit: key => value if value.account == var.accounts.azure}
 
     source          = "terraform-aviatrix-modules/azure-transit/aviatrix"
-    version         = "4.0.1"
+    version         = "4.0.3"
     account         = each.value.account
     region          = each.value.region
     name            = each.key
@@ -52,7 +52,7 @@ module "azure_spoke" {
   for_each =  {for key, value in var.gateways.spoke: key => value if value.account == var.accounts.azure}
 
     source          = "terraform-aviatrix-modules/azure-spoke/aviatrix"
-    version         = "4.0.1"
+    version         = "4.0.3"
     account         = each.value.account
     region          = each.value.region
     name            = each.key
