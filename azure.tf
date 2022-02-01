@@ -15,11 +15,11 @@ EOF
 resource "azurerm_network_interface" "main" {
     for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.account == var.accounts.azure}
         name                = "${each.key}-nic1"
-        resource_group_name = module.azure_spoke["${each.key}"].vnet.resource_group
+        resource_group_name = module.azure["${each.key}"].vnet.resource_group
         location            = each.value.region
         ip_configuration {
-            name                          = module.azure_spoke["${each.key}"].vnet.private_subnets[0].name
-            subnet_id                     = module.azure_spoke["${each.key}"].vnet.private_subnets[0].subnet_id
+            name                          = module.spoke["${each.key}"].vnet.private_subnets[0].name
+            subnet_id                     = module.spoke["${each.key}"].vnet.private_subnets[0].subnet_id
             private_ip_address_allocation = "Dynamic"
         }
 }
@@ -27,7 +27,7 @@ resource "azurerm_network_interface" "main" {
 resource "azurerm_network_security_group" "spoke-host" {
     for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.account == var.accounts.azure}
         name                = "${each.key}-host"
-        resource_group_name = module.azure_spoke["${each.key}"].vnet.resource_group
+        resource_group_name = module.spoke["${each.key}"].vnet.resource_group
         location            = each.value.region
 }
 
@@ -42,7 +42,7 @@ resource "azurerm_network_security_rule" "http" {
         source_address_prefix       = "*"
         destination_port_range      = "80"
         destination_address_prefix  = "*"
-        resource_group_name         = module.azure_spoke["${each.key}"].vnet.resource_group
+        resource_group_name         = module.spoke["${each.key}"].vnet.resource_group
         network_security_group_name = azurerm_network_security_group.spoke-host["${each.key}"].name
 }
 
@@ -57,7 +57,7 @@ resource "azurerm_network_security_rule" "ssh" {
         source_address_prefix       = "*"
         destination_port_range      = "22"
         destination_address_prefix  = "*"
-        resource_group_name         = module.azure_spoke["${each.key}"].vnet.resource_group
+        resource_group_name         = module.spoke["${each.key}"].vnet.resource_group
         network_security_group_name = azurerm_network_security_group.spoke-host["${each.key}"].name
 }
 
@@ -72,7 +72,7 @@ resource "azurerm_network_security_rule" "icmp" {
         source_address_prefix       = "*"
         destination_port_range      = "*"
         destination_address_prefix  = "*"
-        resource_group_name         = module.azure_spoke["${each.key}"].vnet.resource_group
+        resource_group_name         = module.spoke["${each.key}"].vnet.resource_group
         network_security_group_name = azurerm_network_security_group.spoke-host["${each.key}"].name
 }
 
@@ -85,7 +85,7 @@ resource "azurerm_network_interface_security_group_association" "main" {
 resource "azurerm_linux_virtual_machine" "azure_spoke_vm" {
     for_each =  {for key, value in var.gateways.spoke: key => value if coalesce(value.attach_host,false) && value.account == var.accounts.azure}
         name                            = "${each.key}-host"
-        resource_group_name             = module.azure_spoke["${each.key}"].vnet.resource_group
+        resource_group_name             = module.spoke["${each.key}"].vnet.resource_group
         location                        = each.value.region
         size                            = var.azure_test_instance_size
         admin_username                  = "ubuntu"
