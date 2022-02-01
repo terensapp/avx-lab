@@ -3,7 +3,7 @@ terraform {
     hostname = "app.terraform.io"
     organization = "terensapp"
     workspaces {
-      name = "avx-lab"
+      name = "avx-mcna"
     }
   }
 }
