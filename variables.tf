@@ -81,6 +81,7 @@ variable "accounts" {
 
 variable "gateways" {
   type = map(map(object({
+        cloud = string
         account = string
         region = string
         cidr = string
