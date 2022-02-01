@@ -25,7 +25,7 @@ gateways = {
         az-east-spoke1 = {
             cloud = "Azure"
             account         = "azure-main"
-            region         = "us-central"
+            region         = "us-east"
             cidr   = "10.211.0.0/16"
             transit = "az-east-transit"
         }

@@ -1,14 +1,10 @@
-variable "username" {
-  default = "admin"
+variable "AVIATRIX_CONTROLLER_IP" {
 }
 
-variable "password" {
+variable "AVIATRIX_USERNAME" {
 }
 
-variable "controller_ip" {
-}
-
-variable "host_password" {
+variable "AVIATRIX_USERNAME" {
 }
 
 variable "defaultregion" {
